@@ -79,21 +79,20 @@ wa_wildfires %>%
   filter(fire_year == 2010) %>% 
   ggplot() +
     geom_polygon(data = washington, aes(x=long, y=lat, group=group)) +
-    geom_tile(mapping = aes(x=longitude, y=latitude, fill=fire_size)) +
+    geom_point(mapping = aes(x=longitude, y=latitude, fill=fire_size)) +
     coord_quickmap()
 
 
 chooseYear(2010)
 
+wa_wildfires %>% 
+  filter(stat_cause_descr == "Children") %>% 
+ggplot() +
+  geom_bar(mapping = aes(x = fire_size_class, fill=as.character(fire_year)), position = "dodge")
 
-ggplot(wa_wildfires) +
-  geom_bar(mapping = aes(x = fire_year, fill=stat_cause_descr), position = "dodge")
 
-ggplot(wa_wildfires) +
-  geom_bar(mapping = aes(x = fire_year, fill=stat_cause_descr), position = "dodge")
-
-ggplot(wa_wildfires) +
-  geom_bar(mapping = aes(x=fire_year))
+ggplot(combined_wa) +
+  geom_line(mapping = aes(x=fire_year))
 
 wa_wildfires$duration <- wa_wildfires$cont_doy - wa_wildfires$discovery_doy
 
