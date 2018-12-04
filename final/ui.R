@@ -6,21 +6,27 @@
 # 
 #    http://shiny.rstudio.com/
 #
+
 library(shiny)
 library(leaflet)
-
-
-df <- data.table::fread("wa-wildfires.csv", stringsAsFactors = F)
-
-df$latitude <- as.numeric(df$latitude)
-df$longitude <- as.numeric(df$longitude)
-saveRDS(df, "./data.rds")
-
-
-sample_data <- df[c(1:1000),]
-saveRDS(sample_data, "./sample_data.rds")
+# 
+# df <- data.table::fread("wa-wildfires.csv", stringsAsFactors = F)
+# 
+# df$latitude <- as.numeric(df$latitude)
+# df$longitude <- as.numeric(df$longitude)
+# saveRDS(df, "./data.rds")
+# 
+# 
+# sample_data <- df[c(1:1000),]
+# saveRDS(sample_data, "./sample_data.rds")
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-  leafletOutput("Gun Voilence")
+  theme="style.css",
+  tags$p(class="important", "this is a random text"),
+  mainPanel(
+  leafletOutput("gun_violence")
+  )
 )
+
+
