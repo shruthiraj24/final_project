@@ -23,15 +23,17 @@ shinyServer(function(input, output) {
   data <- reactive({
   ca_wildfires <- data.table::fread("all-cal-wildfires.csv", 
                                     stringsAsFactors = FALSE)
-  ca_wildfires[c(1:50),]
   })
 
 #starting our leaflet plot. In this section, we add markers,tiles and 
   # create the pops to let viewers focus on. 
 output$caliFireData <- renderLeaflet({
-  ca_wildfires <- data() %>% 
-    dplyr::filter(fire_year == input$years)
+  d <- data()
+  print(unique(d$years))
   
+  ca_wildfires <- d %>% 
+    dplyr::filter(fire_year == input$years) %>% 
+    dplyr::sample_n(100)
   leaflet(data = ca_wildfires) %>%
     addTiles() %>%
     addMarkers(

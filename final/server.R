@@ -18,6 +18,18 @@ server <- function(input,output){
     df[c(1:100),]
     
   })
+  
+  output$imageGrid <- renderUI({
+    fluidRow(
+      lapply(images, function(img) {
+        column(3, 
+               tags$img(src=paste0("images/", img), class="clickimg", data-value=img)
+        )
+      })
+    )
+  })
+  
+  
   output$caliFireData <- renderLeaflet({
     df <- data()
     
@@ -40,5 +52,5 @@ server <- function(input,output){
 
   
 
- 
 
+ 
