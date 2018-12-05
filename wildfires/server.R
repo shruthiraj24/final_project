@@ -23,15 +23,14 @@ shinyServer(function(input, output) {
   data <- reactive({
   ca_wildfires <- data.table::fread("all-cal-wildfires.csv", 
                                     stringsAsFactors = FALSE)
-  ca_wildfires[c(1:50),]
   })
 
 #starting our leaflet plot. In this section, we add markers,tiles and 
   # create the pops to let viewers focus on. 
 output$caliFireData <- renderLeaflet({
   ca_wildfires <- data() %>% 
-    dplyr::filter(fire_year == input$years)
-  
+    dplyr::filter(fire_year == input$years) %>% 
+    dplyr::sample_n(100)
   leaflet(data = ca_wildfires) %>%
     addTiles() %>%
     addMarkers(
@@ -41,17 +40,11 @@ output$caliFireData <- renderLeaflet({
   
 })
 
-##output$yearSelector <- renderUI({
-##  ca_wildfires <- data()
- ## selectInput('fire_year',
-            ##  label = 'Year',
-              ##choices = unique(ca_wildfires$fire_year))
-##})
-
-##generate bar graph with causes  
+##generate bar graph with causes of wildfires  
   output$Plot <- renderPlot({
     ca_wildfires <- data.table::fread("all-cal-wildfires.csv", 
                                       stringsAsFactors = FALSE)
+    #create function for graph
     causesYearSelect <- function(choose_year){
       ca_wildfires %>%
         filter(fire_year == as.numeric(choose_year)) %>% 
@@ -68,6 +61,7 @@ output$caliFireData <- renderLeaflet({
         guides(fill=FALSE)+
         coord_flip()
     }
+    #run function
     causesYearSelect(input$causes)
     
   })
@@ -76,6 +70,7 @@ output$caliFireData <- renderLeaflet({
   output$map <- renderPlot({
     ca_wildfires <- data.table::fread("all-cal-wildfires.csv", 
                                       stringsAsFactors = FALSE)
+    ##create function for map
     california <- map_data("state", region = "California")
     sizesYear <- function(select_year){
       ca_wildfires %>% 
@@ -93,7 +88,9 @@ output$caliFireData <- renderLeaflet({
         title = "Duration of Fire and Size", size = "Fire Size", 
         color= "Duration of Fire") +
       coord_quickmap()
+      
     }
+    #run function
     sizesYear(input$sizes)
   })
   

@@ -1,0 +1,12 @@
+name: CA_wildfires
+title: CA_wildfires
+username:
+account: shruthiraj24
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 604615
+bundleId: 1743326
+url: https://shruthiraj24.shinyapps.io/CA_wildfires/
+when: 1544034363.16303
+asMultiple: FALSE
+asStatic: FALSE
