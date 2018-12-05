@@ -1,0 +1,2 @@
+load("/Users/shruthiraj/Desktop/info_201/final_project/wildfires/data.rds")
+load("/Users/shruthiraj/Desktop/info_201/final_project/wildfires/sample_data.rds")
