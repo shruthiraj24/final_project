@@ -17,16 +17,28 @@ ui <- fluidPage(
   theme="style.css",
   tags$p(class="important", "this is a random text"),
   titlePanel("fire Data"),
-
-  sidebarLayout(
+  
+   sidebarLayout(
     
     sidebarPanel(
       uiOutput("yearSelector")
-    ),
+     
+    )
+   ) 
+)
     
     mainPanel(
-      leafletOutput("caliFireData")
+      leafletOutput("caliFireData"),
+      uiOutput("imageGrid"),
+      tags$script(HTML(
+        "$(document).on('click', '.clickimg', function() {",
+        "  Shiny.onInputChange('clickimg', $(this).data('value'));",
+        "};"
+      )
     )
   )
-)
+
+
+
+
 
